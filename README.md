@@ -45,7 +45,7 @@ private void Group_DataChange(object sender, System.Collections.Generic.List<Opc
 
 ```C#
 OpcClient client = new OpcClient(new Uri("opc.tcp://127.0.0.1:26543/Workstation.RobotServer"));
- INode root = client.RootNode;           
+INode root = client.RootNode;           
 IEnumerable<INode> list = client.ExploreFolder(root.Tag);
 IEnumerable<INode> server = client.ExploreFolder(list.ToList()[0].Tag);
 IEnumerable<INode> s = client.ExploreFolder(server.ToList()[0].Tag);
