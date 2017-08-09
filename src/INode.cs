@@ -14,13 +14,12 @@ using System.Threading.Tasks;
 
 namespace UcAsp.Opc
 {
-    public class INode
+    public interface INode
     {
         string Name { get; }
         string Tag { get; }
         INode Parent { get; }
-
-        object Value { get; set; }
+        string NodeId { get; }
     }
 
 }

@@ -95,14 +95,14 @@ namespace UcAsp.Opc
         /// <summary>
         /// Finds a node on the Opc Server asynchronously
         /// </summary>
-         Task<INode> FindNodeAsync(string tag);
+        Task<INode> FindNodeAsync(string tag);
 
         /// <summary>
         /// Explore a folder on the Opc Server asynchronously
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures",
           Justification = "Task")]
-         Task<IEnumerable<INode>> ExploreFolderAsync(string tag);
+        Task<IEnumerable<INode>> ExploreFolderAsync(string tag);
 
         event EventHandler<List<OpcItemValue>> DataChange;
     }

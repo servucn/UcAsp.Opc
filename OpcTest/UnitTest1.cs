@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UcAsp.Opc;
+using System.Linq;
+using System.Collections.Generic;
 namespace OpcTest
 {
     [TestClass]
@@ -28,10 +30,21 @@ namespace OpcTest
             OpcClient client = new OpcClient(new Uri("opc.tcp://127.0.0.1:26543/Workstation.RobotServer"));
             client.Write<float>("Robot1.Axis1", 2.0090f);
             float r = client.Read<float>("Robot1.Axis1");
-            
+
             Console.WriteLine(r);
         }
 
+        [TestMethod]
+        public void FindNode()
+        {
+
+            OpcClient client = new OpcClient(new Uri("opc.tcp://127.0.0.1:26543/Workstation.RobotServer"));
+            INode root = client.RootNode;           
+            IEnumerable<INode> list = client.ExploreFolder(root.Tag);
+            IEnumerable<INode> server = client.ExploreFolder(list.ToList()[0].Tag);
+            IEnumerable<INode> s = client.ExploreFolder(server.ToList()[0].Tag);
+            // string name = node.Name;
+        }
         [TestMethod]
         public void UAGroup()
         {

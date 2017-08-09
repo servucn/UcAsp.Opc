@@ -10,20 +10,20 @@ namespace UcAsp.Opc
         /// <summary>
         /// Gets the displayed name of the node
         /// </summary>
-        public string Name { get; protected set; }
+        public virtual string Name { get; protected set; }
 
         /// <summary>
         /// Gets the dot-separated fully qualified tag of the node
         /// </summary>
-        public string Tag { get; protected set; }
+        public virtual string Tag { get; protected set; }
 
         /// <summary>
         /// Gets the parent node. If the node is root, returns null
         /// </summary>
-        public Node Parent { get; private set; }
+        public INode Parent { get; private set; }
 
+        public virtual string NodeId { get; private set; }
 
-        public object Value { get; private set; }
         /// <summary>
         /// Creates a new node
         /// </summary>

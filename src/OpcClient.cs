@@ -57,7 +57,7 @@ namespace UcAsp.Opc
             }
             else
             {
-                _group=_client.AddGroup(groupName);
+                _group = _client.AddGroup(groupName);
                 _groups.Add(groupName, _group);
                 return _group;
             }
@@ -80,10 +80,21 @@ namespace UcAsp.Opc
             }
         }
 
-        //public List<Result> AddItems(string name, string[] itemName)
-        //{
-        //    OpcGroup _group = new OpcGroup();
-        //}
+        public INode FindNode(string tag)
+        {
+            return _client.FindNode(tag);
+        }
+
+        public IEnumerable<INode> ExploreFolder(string tag)
+        {
+            return _client.ExploreFolder(tag);
+
+        }
+        
+        public INode RootNode
+        {
+            get { return _client.RootNode; }
+        }
         public T Read<T>(string itemName)
         {
             return _client.Read<T>(itemName);
@@ -92,6 +103,8 @@ namespace UcAsp.Opc
         {
             return _client.ReadAsync<T>(itemName);
         }
+
+
 
         public void Write<T>(string itemName, T value)
         {
@@ -102,5 +115,7 @@ namespace UcAsp.Opc
         {
             return _client.WriteAsync<T>(itemName, value);
         }
+
+
     }
 }

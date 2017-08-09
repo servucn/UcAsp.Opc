@@ -1,6 +1,6 @@
 ﻿using UcAsp.Opc;
 using Opc.Ua;
-
+using XNode = Opc.Ua.INode;
 using Opc.Ua.Client;
 using Opc.Ua.Configuration;
 using System;
@@ -73,6 +73,7 @@ namespace UcAsp.Opc.Ua
         private void PostInitializeSession()
         {
             var node = _session.NodeCache.Find(ObjectIds.ObjectsFolder);
+
             RootNode = new UaNode(string.Empty, node.NodeId.ToString());
             AddNodeToCache(RootNode);
             Status = OpcStatus.Connected;
@@ -321,59 +322,6 @@ namespace UcAsp.Opc.Ua
                 asyncState: null);
             return taskCompletionSource.Task;
         }
-
-
-        /// <summary>
-        /// Monitor the specified tag for changes
-        /// </summary>
-        /// <typeparam name="T">the type of tag to monitor</typeparam>
-        /// <param name="tag">The fully-qualified identifier of the tag. You can specify a subfolder by using a comma delimited name.
-        /// E.g: the tag `foo.bar` monitors the tag `bar` on the folder `foo`</param>
-        /// <param name="callback">the callback to execute when the value is changed.
-        /// The first parameter is the new value of the node, the second is an `unsubscribe` function to unsubscribe the callback</param>
-        public void Monitor<T>(string tag, Action<T, Action> callback)
-        {
-            var node = FindNode(tag);
-
-            var sub = new Subscription
-            {
-                PublishingInterval = _options.DefaultMonitorInterval,
-                PublishingEnabled = true,
-                LifetimeCount = _options.SubscriptionLifetimeCount,
-                KeepAliveCount = _options.SubscriptionKeepAliveCount,
-                DisplayName = tag,
-                Priority = byte.MaxValue
-            };
-
-            var item = new MonitoredItem
-            {
-                StartNodeId = node.NodeId,
-                AttributeId = Attributes.Value,
-                DisplayName = tag,
-                SamplingInterval = _options.DefaultMonitorInterval
-            };
-            sub.AddItem(item);
-            _session.AddSubscription(sub);
-
-            sub.Create();
-            sub.ApplyChanges();
-
-            item.Notification += (monitoredItem, args) =>
-            {
-                var p = (MonitoredItemNotification)args.NotificationValue;
-                var t = p.Value.WrappedValue.Value;
-
-                Action unsubscribe = () =>
-              {
-                  sub.RemoveItems(sub.MonitoredItems);
-                  sub.Delete(true);
-                  _session.RemoveSubscription(sub);
-                  sub.Dispose();
-              };
-                callback((T)t, unsubscribe);
-            };
-        }
-
 
 
 
@@ -734,6 +682,10 @@ namespace UcAsp.Opc.Ua
         /// </summary>
         public event EventHandler ServerConnectionRestored;
         public event EventHandler<List<OpcItemValue>> DataChange;
+
+
+
+
     }
 
 }

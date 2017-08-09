@@ -182,16 +182,6 @@ namespace UcAsp.Opc.Da
             }
         }
 
-        /// <summary>
-        /// Monitor the specified tag for changes
-        /// </summary>
-        /// <typeparam name="T">the type of tag to monitor</typeparam>
-        /// <param name="tag">The fully-qualified identifier of the tag. You can specify a subfolder by using a comma delimited name.
-        /// E.g: the tag `foo.bar` monitors the tag `bar` on the folder `foo`</param>
-        /// <param name="callback">the callback to execute when the value is changed.
-        /// The first parameter is the new value of the node, the second is an `unsubscribe` function to unsubscribe the callback</param>
-
-
 
         /// <summary>
         /// Finds a node on the Opc Server
@@ -339,6 +329,7 @@ namespace UcAsp.Opc.Da
         {
             return await Task.Run(() => ExploreFolder(tag));
         }
+
     }
 
 
