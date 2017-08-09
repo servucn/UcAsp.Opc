@@ -38,22 +38,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Opc.Ua.Client">
-      <HintPath>..\lib\Opc.Ua.Client.dll</HintPath>
+      <HintPath>lib\Opc.Ua.Client.dll</HintPath>
     </Reference>
     <Reference Include="Opc.Ua.Configuration">
-      <HintPath>..\lib\Opc.Ua.Configuration.dll</HintPath>
+      <HintPath>lib\Opc.Ua.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Opc.Ua.Core">
-      <HintPath>..\lib\Opc.Ua.Core.dll</HintPath>
+      <HintPath>lib\Opc.Ua.Core.dll</HintPath>
     </Reference>
     <Reference Include="OpcComRcw">
-      <HintPath>..\lib\OpcComRcw.dll</HintPath>
+      <HintPath>lib\OpcComRcw.dll</HintPath>
     </Reference>
     <Reference Include="OpcNetApi">
-      <HintPath>..\lib\OpcNetApi.dll</HintPath>
+      <HintPath>lib\OpcNetApi.dll</HintPath>
     </Reference>
     <Reference Include="OpcNetApi.Com">
-      <HintPath>..\lib\OpcNetApi.Com.dll</HintPath>
+      <HintPath>lib\OpcNetApi.Com.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -68,43 +68,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessRights.cs" />
-    <Compile Include="ClientOptions.cs" />
-    <Compile Include="Factory\Da\DaClient.cs" />
-    <Compile Include="Factory\Da\DaClient_async.cs" />
-    <Compile Include="Factory\Da\DaNode.cs" />
-    <Compile Include="Factory\Ua\ClientUtils.cs" />
-    <Compile Include="Factory\Ua\NodeExtensions.cs" />
-    <Compile Include="Factory\Ua\UaClient.cs" />
-    <Compile Include="Factory\Ua\UaNode.cs" />
-    <Compile Include="IClient.cs" />
-    <Compile Include="INode.cs" />
-    <Compile Include="Node.cs" />
-    <Compile Include="OpcClient.cs" />
-    <Compile Include="OpcException.cs" />
-    <Compile Include="OpcGroup.cs" />
-    <Compile Include="OpcItem.cs" />
-    <Compile Include="OpcItemValue.cs" />
-    <Compile Include="OpcStatus.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Result.cs" />
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <Compile Include="src\AccessRights.cs" />
+    <Compile Include="src\ClientOptions.cs" />
+    <Compile Include="src\Factory\Da\DaClient.cs" />
+    <Compile Include="src\Factory\Da\DaClient_async.cs" />
+    <Compile Include="src\Factory\Da\DaNode.cs" />
+    <Compile Include="src\Factory\Ua\ClientUtils.cs" />
+    <Compile Include="src\Factory\Ua\NodeExtensions.cs" />
+    <Compile Include="src\Factory\Ua\UaClient.cs" />
+    <Compile Include="src\Factory\Ua\UaNode.cs" />
+    <Compile Include="src\IClient.cs" />
+    <Compile Include="src\INode.cs" />
+    <Compile Include="src\Node.cs" />
+    <Compile Include="src\OpcClient.cs" />
+    <Compile Include="src\OpcException.cs" />
+    <Compile Include="src\OpcGroup.cs" />
+    <Compile Include="src\OpcItem.cs" />
+    <Compile Include="src\OpcItemValue.cs" />
+    <Compile Include="src\OpcStatus.cs" />
+    <Compile Include="src\Program.cs" />
+    <Compile Include="src\Properties\AssemblyInfo.cs" />
+    <Compile Include="src\Result.cs" />
+    <EmbeddedResource Include="src\Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
+    <Compile Include="src\Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="Properties\Settings.settings">
+    <None Include="src\Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Settings.Designer.cs">
+    <Compile Include="src\Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

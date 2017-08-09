@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UcAsp.OPC", "UcAsp.OPC.csproj", "{439D32AD-D420-4D58-A112-DF4B23DF21D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpcTest", "..\OpcTest\OpcTest.csproj", "{80AF9013-5824-455D-99AA-EDB09614FBBC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpcTest", "OpcTest\OpcTest.csproj", "{80AF9013-5824-455D-99AA-EDB09614FBBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
