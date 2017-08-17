@@ -1,7 +1,7 @@
 # UcAsp.Opc
 opc for da and ua
 ## 注 意：
-[OPC.DAOPC 环境下先安装lib文件夹下的：Core Components Redistributable (x64).msi ]
+[OPC.DA 环境下先安装lib文件夹下的：Core Components Redistributable (x64).msi ]
 
 ## Nuget 安装
 ```ps
