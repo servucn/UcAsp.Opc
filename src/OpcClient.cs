@@ -19,6 +19,8 @@ namespace UcAsp.Opc
         private IClient<INode> _client;
         ClientOptions _options = new ClientOptions();
         private Dictionary<string, OpcGroup> _groups = new Dictionary<string, OpcGroup>();
+
+        public OpcStatus Connect { get; set; }
         public OpcClient(Uri url)
         {
             string m_scheme = url.Scheme.ToLower();
@@ -30,7 +32,15 @@ namespace UcAsp.Opc
             {
                 _client = new Ua.UaClient(url);
             }
-            _client.Connect();
+            try
+            {
+                _client.Connect();
+                Connect = OpcStatus.Connected;
+            }
+            catch (Exception ex)
+            {
+                Connect = OpcStatus.NotConnected;
+            }
         }
         public OpcClient(Uri url, ClientOptions options)
         {
@@ -44,7 +54,15 @@ namespace UcAsp.Opc
             {
                 _client = new Ua.UaClient(url, _options);
             }
-            _client.Connect();
+            try
+            {
+                _client.Connect();
+                Connect = OpcStatus.Connected;
+            }
+            catch (Exception ex)
+            {
+                Connect = OpcStatus.NotConnected;
+            }
 
         }
 
@@ -62,21 +80,21 @@ namespace UcAsp.Opc
                 return _group;
             }
         }
-        public OpcGroup AddItems(string groupName, string[] itemName)
+        public Result AddItems(string groupName, string[] itemName)
         {
+            Result result = new Result();
             OpcGroup _group = new OpcGroup();
             if (_groups.TryGetValue(groupName, out _group))
             {
-                _client.AddItems(groupName, itemName);
-                return _group;
+                result = _client.AddItems(groupName, itemName);
+                return result;
             }
             else
             {
-
                 _client.AddGroup(groupName);
-                _client.AddItems(groupName, itemName);
+                result = _client.AddItems(groupName, itemName);
                 _groups.Add(groupName, _group);
-                return _group;
+                return result;
             }
         }
 
@@ -90,7 +108,7 @@ namespace UcAsp.Opc
             return _client.ExploreFolder(tag);
 
         }
-        
+
         public INode RootNode
         {
             get { return _client.RootNode; }

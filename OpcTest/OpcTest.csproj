@@ -54,9 +54,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UcAsp.OPC.csproj">
+    <ProjectReference Include="..\UcAsp.Opc.csproj">
       <Project>{439d32ad-d420-4d58-a112-df4b23df21d8}</Project>
-      <Name>UcAsp.OPC</Name>
+      <Name>UcAsp.Opc</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

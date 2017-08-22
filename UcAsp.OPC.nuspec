@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>1.0.0.1</version>
+    <title>UcAsp.Net</title>
+    <authors>Rixiang.Yu</authors>
+    <owners>Rixiang.Yu</owners>
+    <licenseUrl>https://github.com/servucn/UcAsp.Opc</licenseUrl>
+    <projectUrl>https://github.com/servucn/UcAsp.Opc</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>OPC fo DA  And UA</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>OPC UA DA </tags>
+  </metadata>
+    <files>
+    <file src="bin\Release\UcAsp.Opc.dll" target="lib"/>
+    <file src="bin\Release\Opc.Ua.Client.dll" target="lib"/>
+    <file src="bin\Release\Opc.Ua.Configuration.dll" target="lib"/>
+    <file src="bin\Release\Opc.Ua.Core.dll" target="lib"/>
+    <file src="bin\Release\OpcComRcw.dll" target="lib"/>
+    <file src="bin\Release\OpcNetApi.Com.dll" target="lib"/>
+    <file src="bin\Release\OpcNetApi.dll" target="lib"/>
+  </files>
+</package>
