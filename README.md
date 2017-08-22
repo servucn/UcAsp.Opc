@@ -1,27 +1,33 @@
 # UcAsp.Opc
 opc for da and ua
+## 注 意：
+[OPC.DA 环境下先安装lib文件夹下的：Core Components Redistributable (x64).msi ]
 
-OPC.DA 读取变量
+## Nuget 安装
+```ps
+Install-Package UcAsp.Opc -Version 1.0.0.1 
+```
+## OPC.DA 读取变量
 ```C#
 OpcClient client = new OpcClient(new Uri("opcda://127.0.0.1/Matrikon.OPC.Simulation.1"));
 string r = client.Read<string>("Random.String");
 ```
 
-OPC.UA 读取变量
+## OPC.UA 读取变量
 
 ```C#
 OpcClient client = new OpcClient(new Uri("opc.tcp://127.0.0.1:26543/Workstation.RobotServer"));
 float r = client.Read<float>("Robot1.Axis1");
 ```
 
-读取和写入
+## 读取和写入
 
 ```C#
 OpcClient client = new OpcClient(new Uri("opc.tcp://127.0.0.1:26543/Workstation.RobotServer"));
 client.Write<float>("Robot1.Axis1", 2.0090f);
 float r = client.Read<float>("Robot1.Axis1");
 ```
-分组监听数据变化
+##  分组监听数据变化
 ```C#
 public void UAGroup()
 {
@@ -40,4 +46,13 @@ private void Group_DataChange(object sender, System.Collections.Generic.List<Opc
    }
 }
 
+```
+##  获取节点信息
+
+```C#
+OpcClient client = new OpcClient(new Uri("opc.tcp://127.0.0.1:26543/Workstation.RobotServer"));
+INode root = client.RootNode;           
+IEnumerable<INode> list = client.ExploreFolder(root.Tag);
+IEnumerable<INode> server = client.ExploreFolder(list.ToList()[0].Tag);
+IEnumerable<INode> s = client.ExploreFolder(server.ToList()[0].Tag);
 ```
