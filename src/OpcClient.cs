@@ -80,22 +80,30 @@ namespace UcAsp.Opc
                 return _group;
             }
         }
-        public Result AddItems(string groupName, string[] itemName)
+        /// <summary>
+        /// 添加监控节点
+        /// </summary>
+        /// <param name="groupName"></param>
+        /// <param name="itemName"></param>
+        /// <param name="msg">返回服务器上不存在items</param>
+        /// <returns></returns>
+        public OpcGroup AddItems(string groupName, string[] itemName, out string msg)
         {
-            Result result = new Result();
+            Result result;
             OpcGroup _group = new OpcGroup();
             if (_groups.TryGetValue(groupName, out _group))
             {
                 result = _client.AddItems(groupName, itemName);
-                return result;
             }
             else
             {
                 _client.AddGroup(groupName);
                 result = _client.AddItems(groupName, itemName);
                 _groups.Add(groupName, _group);
-                return result;
+
             }
+            msg = result.UserData.ToString();
+            return _group;
         }
 
         public INode FindNode(string tag)

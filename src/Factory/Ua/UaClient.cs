@@ -602,25 +602,34 @@ namespace UcAsp.Opc.Ua
 
         public Result AddItems(string groupName, string[] itemName)
         {
+            string _noexit = string.Empty;
             Subscription sub;
             if (dic.TryGetValue(groupName, out sub))
             {
+
                 for (int i = 0; i < itemName.Length; i++)
                 {
                     var node = FindNode(itemName[i]);
-                    var item = new MonitoredItem
+                    if (node != null)
                     {
-                        StartNodeId = node.NodeId,
-                        AttributeId = Attributes.Value,
-                        DisplayName = itemName[i],
-                        SamplingInterval = _options.DefaultMonitorInterval
-                    };
-                    sub.AddItem(item);
+                        var item = new MonitoredItem
+                        {
+                            StartNodeId = node.NodeId,
+                            AttributeId = Attributes.Value,
+                            DisplayName = itemName[i],
+                            SamplingInterval = _options.DefaultMonitorInterval
+                        };
+                        sub.AddItem(item);
+                    }
+                    else
+                    {
+                        _noexit += itemName[i];
+                    }
                 }
                 sub.Create();
                 sub.ApplyChanges();
             }
-            return new Result();
+            return new Result() { Succeed = true, UserData = _noexit };
         }
         private void GetChange(object sub)
         {

@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{439D32AD-D420-4D58-A112-DF4B23DF21D8}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UcAsp.Opc</RootNamespace>
     <AssemblyName>UcAsp.Opc</AssemblyName>
@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
     <Compile Include="src\AccessRights.cs" />
     <Compile Include="src\ClientOptions.cs" />
     <Compile Include="src\Factory\Da\DaClient.cs" />

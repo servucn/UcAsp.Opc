@@ -305,6 +305,7 @@ namespace UcAsp.Opc.Da
         public Result AddItems(string groupName, string[] itemName)
         {
             OpcDa.ISubscription sub;
+            OpcDa.ItemResult[] itemresult;
             if (dic.TryGetValue(groupName, out sub))
             {
                 List<OpcDa.Item> items = new List<OpcDa.Item>();
@@ -313,11 +314,25 @@ namespace UcAsp.Opc.Da
                     OpcDa.Item item = new OpcDa.Item { ItemName = itemName[i] };
                     items.Add(item);
                 }
-                sub.AddItems(items.ToArray());
+                itemresult = sub.AddItems(items.ToArray());
+                string _noexit = string.Empty;
+                for (int i = 0; i < itemresult.Length; i++)
+                {
+                    if (itemresult[i].ResultID != ResultID.S_OK)
+                    {
+                        _noexit += itemName[i];
+
+                    }
+                }
+                return new Result() { Succeed = true, UserData = _noexit };
+
+            }
+            else
+            {
+                return new Result() { Succeed = false, UserData = groupName + "组不存在" };
             }
 
-            sub.SetEnabled(true);
-            return new Result();
+
         }
 
         public async Task<INode> FindNodeAsync(string tag)

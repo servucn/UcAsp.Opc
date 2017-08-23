@@ -59,8 +59,9 @@ namespace OpcTest
             OpcClient client = new OpcClient(new Uri("opc.tcp://127.0.0.1:26543/Workstation.RobotServer"));
             if (client.Connect == OpcStatus.Connected)
             {
+                string msg;
                 OpcGroup group = client.AddGroup("Test");
-                client.AddItems("Test", new string[] { "Robot1.Axis1", "Robot1.Axis2" });
+                client.AddItems("Test", new string[] { "Robot1.Axis1", "Robot1.Axis2" }, out msg);
                 group.DataChange += Group_DataChange;
                 Console.WriteLine(group);
             }

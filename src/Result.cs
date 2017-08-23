@@ -17,8 +17,6 @@ namespace UcAsp.Opc
     public class Result
     {
         public bool Succeed { get; set; }
-        public bool Failed { get; set; }
-        public byte[] Blob { get; set; }
         public object UserData { get; set; }
     }
 }
