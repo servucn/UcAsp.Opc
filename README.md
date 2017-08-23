@@ -11,6 +11,7 @@ Install-Package UcAsp.Opc -Version 1.0.0.1
 ```C#
 OpcClient client = new OpcClient(new Uri("opcda://127.0.0.1/Matrikon.OPC.Simulation.1"));
 string r = client.Read<string>("Random.String");
+
 ```
 
 ## OPC.UA 读取变量
@@ -18,6 +19,7 @@ string r = client.Read<string>("Random.String");
 ```C#
 OpcClient client = new OpcClient(new Uri("opc.tcp://127.0.0.1:26543/Workstation.RobotServer"));
 float r = client.Read<float>("Robot1.Axis1");
+var list = client.Read(new string[] { "Robot1.Axis1", "Robot1.Axis2" });
 ```
 
 ## 读取和写入
@@ -26,6 +28,7 @@ float r = client.Read<float>("Robot1.Axis1");
 OpcClient client = new OpcClient(new Uri("opc.tcp://127.0.0.1:26543/Workstation.RobotServer"));
 client.Write<float>("Robot1.Axis1", 2.0090f);
 float r = client.Read<float>("Robot1.Axis1");
+var result = client.Write(new string[] { "Robot1.Axis1", "Robot1.Axis2" }, new object[] { 2.0090f, 2.0090f });
 ```
 ##  分组监听数据变化
 ```C#
