@@ -125,6 +125,10 @@ namespace UcAsp.Opc
         {
             return _client.Read<T>(itemName);
         }
+        public List<OpcItemValue> Read(string[] tag)
+        {
+            return _client.Read(tag);
+        }
         public Task<T> ReadAsync<T>(string itemName)
         {
             return _client.ReadAsync<T>(itemName);
@@ -136,7 +140,10 @@ namespace UcAsp.Opc
         {
             _client.Write<T>(itemName, value);
         }
-
+        public List<Result> Write(string[] tag, object[] values)
+        {
+            return _client.Write(tag, values);
+        }
         public Task WriteAsync<T>(string itemName, T value)
         {
             return _client.WriteAsync<T>(itemName, value);

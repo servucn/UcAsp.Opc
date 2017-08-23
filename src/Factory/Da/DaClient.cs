@@ -142,7 +142,25 @@ namespace UcAsp.Opc.Da
             TryCastResult(result.Value, out casted);
             return casted;
         }
-
+        public List<OpcItemValue> Read(string[] tag)
+        {
+            if (Status == OpcStatus.NotConnected)
+            {
+                throw new OpcException("Server not connected. Cannot read tag.");
+            }
+            List<OpcDa.Item> items = new List<OpcDa.Item>();
+            for (int i = 0; i < tag.Length; i++)
+            {
+                items.Add(new OpcDa.Item { ItemName = tag[i] });
+            }
+            OpcDa.ItemValueResult[] itemresult = _server.Read(items.ToArray());
+            List<OpcItemValue> itemvalues = new List<OpcItemValue>();
+            for (int i = 0; i < itemresult.Length; i++)
+            {
+                itemvalues.Add(new OpcItemValue { ItemId = itemresult[i].ItemName, Quality = itemresult[i].Quality.ToString(), Value = itemresult[i].Value, Timestamp = itemresult[i].Timestamp });
+            }
+            return itemvalues;
+        }
         /// <summary>
         /// Write a value on the specified opc tag
         /// </summary>
@@ -160,7 +178,27 @@ namespace UcAsp.Opc.Da
             var result = _server.Write(new[] { itmVal })[0];
             CheckResult(result, tag);
         }
-
+        public List<Result> Write(string[] tag, object[] values)
+        {
+            List<Result> results = new List<Result>();
+            if (tag.Length != values.Length)
+                throw new Exception("item和values个数不一致");
+            List<OpcDa.ItemValue> _values = new List<OpcDa.ItemValue>();
+            for (int i = 0; i < tag.Length; i++)
+            {
+                var itmVal = new OpcDa.ItemValue
+                {
+                    ItemName = tag[i],
+                    Value = values[i]
+                };
+            }
+            var writresut = _server.Write(_values.ToArray());
+            foreach (IdentifiedResult r in writresut)
+            {
+                results.Add(new Result { Succeed = r.ResultID == ResultID.S_OK });
+            }
+            return results;
+        }
         /// <summary>
         /// Casts result of monitoring and reading values
         /// </summary>

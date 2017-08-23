@@ -100,7 +100,7 @@ namespace UcAsp.Opc.Ua
         /// <returns>System Type</returns>
         public System.Type GetDataType(string tag)
         {
-            var nodesToRead = BuildReadValueIdCollection(tag, Attributes.Value);
+            var nodesToRead = BuildReadValueIdCollection(new string[] { tag }, Attributes.Value);
             DataValueCollection results;
             DiagnosticInfoCollection diag;
             _session.Read(
@@ -168,15 +168,20 @@ namespace UcAsp.Opc.Ua
         public OpcStatus Status { get; private set; }
 
 
-        private ReadValueIdCollection BuildReadValueIdCollection(string tag, uint attributeId)
+        private ReadValueIdCollection BuildReadValueIdCollection(string[] tag, uint attributeId)
         {
-            var n = FindNode(tag, RootNode);
-            var readValue = new ReadValueId
+            ReadValueIdCollection readvalues = new ReadValueIdCollection();
+            for (int i = 0; i < tag.Length; i++)
             {
-                NodeId = n.NodeId,
-                AttributeId = attributeId
-            };
-            return new ReadValueIdCollection { readValue };
+                var n = FindNode(tag[i], RootNode);
+                var readValue = new ReadValueId
+                {
+                    NodeId = n.NodeId,
+                    AttributeId = attributeId
+                };
+                readvalues.Add(readValue);
+            }
+            return readvalues;
         }
 
         /// <summary>
@@ -188,7 +193,7 @@ namespace UcAsp.Opc.Ua
         /// <returns>The value retrieved from the OPC</returns>
         public T Read<T>(string tag)
         {
-            var nodesToRead = BuildReadValueIdCollection(tag, Attributes.Value);
+            var nodesToRead = BuildReadValueIdCollection(new string[] { tag }, Attributes.Value);
             DataValueCollection results;
             DiagnosticInfoCollection diag;
             _session.Read(
@@ -205,6 +210,29 @@ namespace UcAsp.Opc.Ua
         }
 
 
+        public List<OpcItemValue> Read(string[] tag)
+        {
+            var nodesToRead = BuildReadValueIdCollection(tag, Attributes.Value);
+            DataValueCollection results;
+            DiagnosticInfoCollection diag;
+            _session.Read(
+                requestHeader: null,
+                maxAge: 0,
+                timestampsToReturn: TimestampsToReturn.Neither,
+                nodesToRead: nodesToRead,
+                results: out results,
+                diagnosticInfos: out diag);
+            List<OpcItemValue> value = new List<OpcItemValue>();
+            int i = 0;
+            foreach (DataValue v in results)
+            {
+                OpcItemValue oiv = new OpcItemValue { ItemId = tag[i], Value = v.Value, Quality = v.StatusCode.ToString(), Timestamp = v.SourceTimestamp };
+                i++;
+                value.Add(oiv);
+            }
+            return value;
+        }
+
         /// <summary>
         /// Read a tag asynchronously
         /// </summary>
@@ -214,7 +242,7 @@ namespace UcAsp.Opc.Ua
         /// <returns>The value retrieved from the OPC</returns>
         public Task<T> ReadAsync<T>(string tag)
         {
-            var nodesToRead = BuildReadValueIdCollection(tag, Attributes.Value);
+            var nodesToRead = BuildReadValueIdCollection(new string[] { tag }, Attributes.Value);
 
             // Wrap the ReadAsync logic in a TaskCompletionSource, so we can use C# async/await syntax to call it:
             var taskCompletionSource = new TaskCompletionSource<T>();
@@ -250,16 +278,22 @@ namespace UcAsp.Opc.Ua
         }
 
 
-        private WriteValueCollection BuildWriteValueCollection(string tag, uint attributeId, object dataValue)
+        private WriteValueCollection BuildWriteValueCollection(string[] tag, uint attributeId, object[] dataValue)
         {
-            var n = FindNode(tag, RootNode);
-            var writeValue = new WriteValue
+            WriteValueCollection writevalues = new WriteValueCollection();
+            for (int i = 0; i < tag.Length; i++)
             {
-                NodeId = n.NodeId,
-                AttributeId = attributeId,
-                Value = { Value = dataValue }
-            };
-            return new WriteValueCollection { writeValue };
+                var n = FindNode(tag[i], RootNode);
+                var writeValue = new WriteValue
+                {
+                    NodeId = n.NodeId,
+                    AttributeId = attributeId,
+                    Value = { Value = dataValue[i] }
+                };
+                writevalues.Add(writeValue);
+            }
+
+            return writevalues;
         }
 
         /// <summary>
@@ -271,7 +305,7 @@ namespace UcAsp.Opc.Ua
         /// <param name="item">The value for the item to write</param>
         public void Write<T>(string tag, T item)
         {
-            var nodesToWrite = BuildWriteValueCollection(tag, Attributes.Value, item);
+            var nodesToWrite = BuildWriteValueCollection(new string[] { tag }, Attributes.Value, new object[] { item });
 
             StatusCodeCollection results;
             DiagnosticInfoCollection diag;
@@ -283,7 +317,29 @@ namespace UcAsp.Opc.Ua
 
             CheckReturnValue(results[0]);
         }
+        public List<Result> Write(string[] tag, object[] values)
+        {
 
+            if (tag.Length != values.Length)
+                throw new Exception("item和values个数不一致");
+            var nodesToWrite = BuildWriteValueCollection(tag, Attributes.Value, values);
+
+            StatusCodeCollection status;
+            DiagnosticInfoCollection diag;
+            _session.Write(
+                requestHeader: null,
+                nodesToWrite: nodesToWrite,
+                results: out status,
+                diagnosticInfos: out diag);
+            List<Result> results = new List<Result>();
+            for (int i = 0; i < status.Count; i++)
+            {
+                StatusCode code = status[i];
+                results.Add(new Result { Succeed = StatusCode.IsGood(code) });
+            }
+
+            return results;
+        }
         /// <summary>
         /// Write a value on the specified opc tag asynchronously
         /// </summary>
@@ -293,7 +349,7 @@ namespace UcAsp.Opc.Ua
         /// <param name="item">The value for the item to write</param>
         public Task WriteAsync<T>(string tag, T item)
         {
-            var nodesToWrite = BuildWriteValueCollection(tag, Attributes.Value, item);
+            var nodesToWrite = BuildWriteValueCollection(new string[] { tag }, Attributes.Value, new object[] { item });
 
             // Wrap the WriteAsync logic in a TaskCompletionSource, so we can use C# async/await syntax to call it:
             var taskCompletionSource = new TaskCompletionSource<StatusCode>();

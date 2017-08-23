@@ -26,6 +26,7 @@ namespace OpcTest
             if (client.Connect == OpcStatus.Connected)
             {
                 float r = client.Read<float>("Robot1.Axis1");
+                var list = client.Read(new string[] { "Robot1.Axis1", "Robot1.Axis2" });
             }
         }
         [TestMethod]
@@ -36,6 +37,7 @@ namespace OpcTest
             {
                 client.Write<float>("Robot1.Axis1", 2.0090f);
                 float r = client.Read<float>("Robot1.Axis1");
+                var result = client.Write(new string[] { "Robot1.Axis1", "Robot1.Axis2" }, new object[] { 2.0090f, 2.0090f });
 
             }
         }

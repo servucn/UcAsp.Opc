@@ -42,6 +42,8 @@ namespace UcAsp.Opc
         /// <returns>The value retrieved from the OPC</returns>
         T Read<T>(string tag);
 
+
+        List<OpcItemValue> Read(string[] tag);
         /// <summary>
         /// Write a value on the specified opc tag
         /// </summary>
@@ -50,7 +52,7 @@ namespace UcAsp.Opc
         /// E.g: the tag `foo.bar` writes on the tag `bar` on the folder `foo`</param>
         /// <param name="item"></param>
         void Write<T>(string tag, T item);
-
+        List<Result> Write(string[] tag, object[] values);
         /// <summary>
         /// Monitor the specified tag for changes
         /// </summary>
@@ -59,7 +61,7 @@ namespace UcAsp.Opc
         /// E.g: the tag `foo.bar` monitors the tag `bar` on the folder `foo`</param>
         /// <param name="callback">the callback to execute when the value is changed.
         /// The first parameter is the new value of the node, the second is an `unsubscribe` function to unsubscribe the callback</param>
-      //  void Monitor<T>(string tag, Action<T, Action> callback);
+        //  void Monitor<T>(string tag, Action<T, Action> callback);
 
         /// <summary>
         /// Finds a node on the Opc Server
