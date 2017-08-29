@@ -15,7 +15,7 @@ namespace UcAsp.Opc.Ua
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling",
       Justification = "Doesn't make sense to split this class")]
-    public class UaClient : IClient<UaNode>
+    public partial class UaClient : IClient<UaNode>
     {
         private readonly ClientOptions _options = new ClientOptions();
         private readonly Uri _serverUrl;
@@ -206,7 +206,7 @@ namespace UcAsp.Opc.Ua
             var val = results[0];
 
             CheckReturnValue(val.StatusCode);
-            return (T)val.Value;
+            return (T)ConvertToT.ConvertT<T>(val.Value);
         }
 
 
@@ -412,13 +412,7 @@ namespace UcAsp.Opc.Ua
             return nodes;
         }
 
-        /// <summary>
-        /// Explores a folder asynchronously
-        /// </summary>
-        public async Task<IEnumerable<INode>> ExploreFolderAsync(string tag)
-        {
-            return await Task.Run(() => ExploreFolder(tag));
-        }
+
 
         /// <summary>
         /// Finds a node on the Opc Server
@@ -444,13 +438,7 @@ namespace UcAsp.Opc.Ua
             throw new OpcException(string.Format("The tag \"{0}\" doesn't exist on the Server", tag));
         }
 
-        /// <summary>
-        /// Find node asynchronously
-        /// </summary>
-        public async Task<INode> FindNodeAsync(string tag)
-        {
-            return await Task.Run(() => FindNode(tag));
-        }
+
 
         /// <summary>
         /// Gets the root node of the server
@@ -746,10 +734,7 @@ namespace UcAsp.Opc.Ua
         /// This event is raised when the connection to the OPC server is restored.
         /// </summary>
         public event EventHandler ServerConnectionRestored;
-        public event EventHandler<List<OpcItemValue>> DataChange;
-
-
-
+        public event EventHandler<ItemDataEventArgs> DataChange;
 
     }
 

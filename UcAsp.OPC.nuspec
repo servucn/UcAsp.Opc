@@ -1,27 +1,35 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
-    <version>1.0.0.2</version>
+    <id>UcAsp.Opc</id>
+    <version>1.0.0.5</version>
     <title>UcAsp.Opc</title>
     <authors>Rixiang.Yu</authors>
     <owners>Rixiang.Yu</owners>
     <licenseUrl>https://github.com/servucn/UcAsp.Opc</licenseUrl>
     <projectUrl>https://github.com/servucn/UcAsp.Opc</projectUrl>
+    <iconUrl>http://www.ucasp.net/files/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>OPC fo DA  And UA</description>
     <copyright>Copyright 2017</copyright>
     <tags>OPC UA DA </tags>
   </metadata>
     <files>
-    <file src="bin\Release\UcAsp.Opc.dll" target="lib"/>
-    <file src="bin\Release\Opc.Ua.Client.dll" target="lib"/>
-    <file src="bin\Release\Opc.Ua.Configuration.dll" target="lib"/>
-    <file src="bin\Release\Opc.Ua.Core.dll" target="lib"/>
-    <file src="bin\Release\OpcComRcw.dll" target="lib"/>
-    <file src="bin\Release\OpcNetApi.Com.dll" target="lib"/>
-    <file src="bin\Release\OpcNetApi.dll" target="lib"/>    
-    <file src="lib\README.txt" target="lib"/>
-    <file src="lib\OPC Core Components Redistributable (x64).msi" target="lib"/>
+    <file src="UcAsp.Opc.Net4.6\bin\Release\UcAsp.Opc.dll" target="lib\net46"/>
+    <file src="UcAsp.Opc.Net4.0\bin\Release\UcAsp.Opc.dll" target="lib\net40"/>
+    <file src="UcAsp.Opc.Net4.0\bin\Release\Microsoft.Threading.Tasks.dll" target="lib\net40"/>
+    <file src="UcAsp.Opc.Net4.0\bin\Release\Microsoft.Threading.Tasks.Extensions.Desktop.dll" target="lib\net40"/>
+    <file src="UcAsp.Opc.Net4.0\bin\Release\Microsoft.Threading.Tasks.Extensions.dll" target="lib\net40"/>
+    <file src="UcAsp.Opc.Net4.0\bin\Release\System.IO.dll" target="lib\net40"/>
+    <file src="UcAsp.Opc.Net4.0\bin\Release\System.Runtime.dll" target="lib\net40"/>
+    <file src="UcAsp.Opc.Net4.0\bin\Release\System.Threading.Tasks.dll" target="lib\net40"/>
+    <file src="lib\Opc.Ua.Client.dll" target="lib"/>
+    <file src="lib\Opc.Ua.Configuration.dll" target="lib"/>
+    <file src="lib\Opc.Ua.Core.dll" target="lib"/>
+    <file src="lib\OpcComRcw.dll" target="lib"/>
+    <file src="lib\OpcNetApi.Com.dll" target="lib"/>
+    <file src="lib\OpcNetApi.dll" target="lib"/>    
+    <file src="lib\README.txt" target="content"/>
+    <file src="lib\OPC Core Components Redistributable (x64).msi" target="content"/>
   </files>
 </package>

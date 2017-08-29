@@ -20,6 +20,15 @@ namespace OpcTest
         }
 
         [TestMethod]
+        public void DaRead()
+        {
+            OpcClient client = new OpcClient(new Uri("opcda://127.0.0.1/Matrikon.OPC.Simulation.1"));
+            int int1= client.Read<int>("Random.Int1");
+            List<OpcItemValue> r = client.Read(new string[] { "Random.Int1", "Random.Int2" });
+            client.Write(new string[] { "Random.Int1", "Random.Int2" },new  object[]{ 1,2});
+        }
+
+        [TestMethod]
         public void UARead()
         {
             OpcClient client = new OpcClient(new Uri("opc.tcp://127.0.0.1:26543/Workstation.RobotServer"));
@@ -69,9 +78,9 @@ namespace OpcTest
             }
         }
 
-        private void Group_DataChange(object sender, System.Collections.Generic.List<OpcItemValue> e)
+        private void Group_DataChange(object sender, ItemDataEventArgs e)
         {
-            foreach (OpcItemValue o in e)
+            foreach (OpcItemValue o in e.Data)
             {
                 Console.WriteLine(o.Value);
             }

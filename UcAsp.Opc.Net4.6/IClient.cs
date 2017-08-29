@@ -106,6 +106,6 @@ namespace UcAsp.Opc
           Justification = "Task")]
         Task<IEnumerable<INode>> ExploreFolderAsync(string tag);
 
-        event EventHandler<List<OpcItemValue>> DataChange;
+        event EventHandler<ItemDataEventArgs> DataChange;
     }
 }

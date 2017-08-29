@@ -22,12 +22,13 @@ namespace UcAsp.Opc
         {
             if (DataChange != null)
             {
-                DataChange(this, e);
+                ItemDataEventArgs data = new ItemDataEventArgs { Data = e };
+                DataChange(this, data);
             }
         }
 
 
-        public event EventHandler<List<OpcItemValue>> DataChange;
+        public event EventHandler<ItemDataEventArgs> DataChange;
         public TimeSpan UpdateRate { get; set; }
         public List<OpcItem> Items { get; set; }
         public bool IsActive { get; set; }

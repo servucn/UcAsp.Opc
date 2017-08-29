@@ -1,4 +1,12 @@
-﻿using System.Linq;
+﻿/***************************************************
+*创建人:rixiang.yu
+*创建时间:2017/6/28 13:11:32
+*功能说明:<Function>
+*版权所有:<Copyright>
+*Frameworkversion:4.0
+*CLR版本：4.0.30319.42000
+***************************************************/
+using System.Linq;
 using Opc.Ua;
 using System;
 using Opc.Ua.Client;

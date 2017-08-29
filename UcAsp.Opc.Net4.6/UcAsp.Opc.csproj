@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{439D32AD-D420-4D58-A112-DF4B23DF21D8}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UcAsp.Opc</RootNamespace>
     <AssemblyName>UcAsp.Opc</AssemblyName>
@@ -69,27 +69,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="src\AccessRights.cs" />
-    <Compile Include="src\ClientOptions.cs" />
-    <Compile Include="src\Factory\Da\DaClient.cs" />
-    <Compile Include="src\Factory\Da\DaClient_async.cs" />
-    <Compile Include="src\Factory\Da\DaNode.cs" />
-    <Compile Include="src\Factory\Ua\ClientUtils.cs" />
-    <Compile Include="src\Factory\Ua\NodeExtensions.cs" />
-    <Compile Include="src\Factory\Ua\UaClient.cs" />
-    <Compile Include="src\Factory\Ua\UaNode.cs" />
-    <Compile Include="src\IClient.cs" />
-    <Compile Include="src\INode.cs" />
-    <Compile Include="src\Node.cs" />
-    <Compile Include="src\OpcClient.cs" />
-    <Compile Include="src\OpcException.cs" />
-    <Compile Include="src\OpcGroup.cs" />
-    <Compile Include="src\OpcItem.cs" />
-    <Compile Include="src\OpcItemValue.cs" />
-    <Compile Include="src\OpcStatus.cs" />
+    <Compile Include="ConvertToT.cs" />
+    <Compile Include="AccessRights.cs" />
+    <Compile Include="ClientOptions.cs" />
+    <Compile Include="Factory\Da\DaClient.cs" />
+    <Compile Include="Factory\Da\DaClient_async.cs" />
+    <Compile Include="Factory\Da\DaNode.cs" />
+    <Compile Include="Factory\Ua\ClientUtils.cs" />
+    <Compile Include="Factory\Ua\NodeExtensions.cs" />
+    <Compile Include="Factory\Ua\UaClient.cs" />
+    <Compile Include="Factory\Ua\UaClient_async.cs" />
+    <Compile Include="Factory\Ua\UaNode.cs" />
+    <Compile Include="IClient.cs" />
+    <Compile Include="INode.cs" />
+    <Compile Include="ItemDataEventArgs.cs" />
+    <Compile Include="Node.cs" />
+    <Compile Include="OpcClient.cs" />
+    <Compile Include="OpcException.cs" />
+    <Compile Include="OpcGroup.cs" />
+    <Compile Include="OpcItem.cs" />
+    <Compile Include="OpcItemValue.cs" />
+    <Compile Include="OpcStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\Result.cs" />
+    <Compile Include="Result.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

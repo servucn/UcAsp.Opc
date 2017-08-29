@@ -1,4 +1,12 @@
-﻿using System;
+﻿/***************************************************
+*创建人:rixiang.yu
+*创建时间:2017/8/28 13:14:32
+*功能说明:<Function>
+*版权所有:<Copyright>
+*Frameworkversion:4.0
+*CLR版本：4.0.30319.42000
+***************************************************/
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -9,6 +17,7 @@ using Factory = OpcCom.Factory;
 using OpcDa = Opc.Da;
 using System.Threading.Tasks;
 using UcAsp.Opc;
+
 namespace UcAsp.Opc.Da
 {
     /// <summary>
@@ -26,7 +35,7 @@ namespace UcAsp.Opc.Da
         // default monitor interval in Milliseconds
         private const int DefaultMonitorInterval = 100;
 
-        public event EventHandler<List<OpcItemValue>> DataChange;
+        public event EventHandler<ItemDataEventArgs> DataChange;
 
         /// <summary>
         /// Initialize a new Data Access Client
@@ -209,9 +218,9 @@ namespace UcAsp.Opc.Da
         {
             try
             {
-                casted = (T)value;
+                casted = (T)ConvertToT.ConvertT<T>(value);
             }
-            catch (InvalidCastException)
+            catch (InvalidCastException ex)
             {
                 throw new InvalidCastException(
                   string.Format(
@@ -373,15 +382,6 @@ namespace UcAsp.Opc.Da
 
         }
 
-        public async Task<INode> FindNodeAsync(string tag)
-        {
-            return await Task.Run(() => FindNode(tag));
-        }
-
-        public async Task<IEnumerable<INode>> ExploreFolderAsync(string tag)
-        {
-            return await Task.Run(() => ExploreFolder(tag));
-        }
 
     }
 
