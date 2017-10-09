@@ -7,7 +7,7 @@ namespace UcAsp.Opc
     /// <summary>
     /// Client interface to perform basic Opc tasks, like discovery, monitoring, reading/writing tags,
     /// </summary>
-    public interface IClient<out TNode> : IDisposable
+    internal interface IClient<out TNode> : IDisposable
       where TNode : INode
     {
 
