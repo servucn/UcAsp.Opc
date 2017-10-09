@@ -5,7 +5,7 @@ opc for da and ua
 
 ## Nuget 安装
 ```ps
-Install-Package UcAsp.Opc -Version 1.0.0.1 
+Install-Package UcAsp.Opc -Version 1.0.0.5 
 ```
 ## OPC.DA 读取变量
 ```C#
